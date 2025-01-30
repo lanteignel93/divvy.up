@@ -1,5 +1,5 @@
 name: Ruff
-on: [push, pull_request]
+on: [commit, push, pull_request]
 
 jobs:
   ruff:
@@ -7,4 +7,5 @@ jobs:
     steps:
       - uses: astral-sh/ruff-action@v3
         with:
+          src: "./src"
           args: "format --check"
