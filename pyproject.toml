@@ -8,6 +8,7 @@ authors = [
 ]
 dependencies = [
   "ruff",
+  "pre-commit"
 ]
 description = "Software to track divide bills and expenses within a group."
 readme = "README.md"
