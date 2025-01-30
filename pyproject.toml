@@ -7,8 +7,9 @@ authors = [
   { name="Jan Christopherson", email="janchristopherson@gmail.com" },
 ]
 dependencies = [
+  "ruff",
 ]
-description = "Software to track divide bills and expenses within a group"
+description = "Software to track divide bills and expenses within a group."
 readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [

@@ -1,0 +1,8 @@
+name: Ruff
+on: [push, pull_request]
+jobs:
+  ruff:
+    steps:
+      - uses: astral-sh/ruff-action@v3
+      - run: ruff check --fix
+      - run: ruff format
