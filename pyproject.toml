@@ -1,6 +1,7 @@
 [project]
 name = "divvy.up"
 version = "0.0.0"
+date = "2025-01-29"
 authors = [
   { name="Laurent Lanteigne", email="laurent.lanteigne@gmail.com" },
   { name="Jan Christopherson", email="janchristopherson@gmail.com" },
