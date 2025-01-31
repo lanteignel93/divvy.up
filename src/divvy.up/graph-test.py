@@ -41,7 +41,7 @@ class NetworkFlowSolverBase:
         self.s = None
         self.t = None
 
-    def add_edge(self, from_node, to_node, capacity, cost=0):
+    def add_edge(self, from_node, to_node, capacity, cost=0, verbose=False):
         if capacity < 0:
             raise ValueError("Capacity < 0")
         e1 = Edge(from_node, to_node, capacity, cost)
@@ -51,6 +51,13 @@ class NetworkFlowSolverBase:
         self.graph[from_node].append(e1)
         self.graph[to_node].append(e2)
         self.edges.append(e1)
+        if verbose:
+            print(
+                self.vertex_labels[from_node],
+                " owes ",
+                self.vertex_labels[to_node],
+                capacity,
+            )
 
     def add_edges(self, edges):
         for edge in edges:
@@ -106,7 +113,7 @@ class NetworkFlowSolverBase:
         self.solve()
 
 
-class Dinics(NetworkFlowSolverBase):
+class DebtSimplifier(NetworkFlowSolverBase):
     def __init__(self, n, vertex_labels):
         super().__init__(n, vertex_labels)
         self.level = [-1] * n
@@ -157,7 +164,7 @@ class Dinics(NetworkFlowSolverBase):
 def create_graph_for_debts():
     person = ["Alice", "Bob", "Charlie", "David", "Ema", "Fred", "Gabe"]
     n = len(person)
-    solver = Dinics(n, person)
+    solver = DebtSimplifier(n, person)
     solver = add_all_transactions(solver)
 
     print("\nSimplifying Debts...")
@@ -191,24 +198,24 @@ def create_graph_for_debts():
         sink = solver.get_sink()
         visited_edges.add(get_hash_key_for_edge(source, sink))
 
-        solver = Dinics(n, person)
+        solver = DebtSimplifier(n, person)
         solver.add_edges(new_edges)
-        solver.add_edge(source, sink, max_flow)
+        solver.add_edge(source, sink, max_flow, verbose=False)
 
     solver.print_edges()
     print("\n")
 
 
 def add_all_transactions(solver):
-    solver.add_edge(1, 2, 40)
-    solver.add_edge(2, 3, 20)
-    solver.add_edge(3, 4, 50)
-    solver.add_edge(5, 1, 10)
-    solver.add_edge(5, 2, 30)
-    solver.add_edge(5, 3, 10)
-    solver.add_edge(5, 4, 10)
-    solver.add_edge(6, 1, 30)
-    solver.add_edge(6, 3, 10)
+    solver.add_edge(1, 2, 40, verbose=True)
+    solver.add_edge(2, 3, 20, verbose=True)
+    solver.add_edge(3, 4, 50, verbose=True)
+    solver.add_edge(5, 1, 10, verbose=True)
+    solver.add_edge(5, 2, 30, verbose=True)
+    solver.add_edge(5, 3, 10, verbose=True)
+    solver.add_edge(5, 4, 10, verbose=True)
+    solver.add_edge(6, 1, 30, verbose=True)
+    solver.add_edge(6, 3, 10, verbose=True)
     return solver
 
 
