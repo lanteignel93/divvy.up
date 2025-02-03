@@ -87,6 +87,7 @@ class NetworkFlowSolverBase:
 
     def set_source(self, s):
         self.s = s
+        return None
 
     def set_sink(self, t):
         self.t = t
